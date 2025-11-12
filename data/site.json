@@ -1,20 +1,14 @@
 {
   "company": "你的公司",
-  "tagline": "專業貼心，迅速可靠",
   "hero_title": "用最簡單的方式，讓客戶固定找到你",
-  "hero_desc": "我們提供關鍵服務，支援線上/離線洽談與合約。服務時間：週一至週六 09:00–18:00。",
-  "phone": "852-1234-5678",
-  "email": "hello@example.com",
-  "whatsapp": "85212345678",
-  "logo": "/images/logo.png",
+  "hero_desc": "我們提供關鍵服務，支援線上/離線洽談與合約。",
   "products": [
-    { "title": "產品 A", "image": "/images/service-a.jpg", "points": ["特點 1", "特點 2"] },
-    { "title": "產品 B", "image": "/images/service-b.jpg", "points": ["特點 1", "特點 2"] },
-    { "title": "產品 C", "image": "/images/service-c.jpg", "points": ["特點 1", "特點 2"] }
+    { "title": "產品 A", "img": "", "points": ["特點 1", "特點 2"] }
   ],
-  "feedbacks": [
-    { "quote": "服務很好，效率高，溝通順暢！", "author": "客戶 A" },
-    { "quote": "產品品質穩定，出貨迅速，非常值得信賴。", "author": "客戶 B" },
-    { "quote": "回覆快速、態度專業，會再合作。", "author": "客戶 C" }
-  ]
+  "feedback": [
+    { "text": "服務很好，效率高！", "author": "客戶 A" }
+  ],
+  "phone": "852-0000-0000",
+  "email": "hello@example.com",
+  "whatsapp": "85200000000"
 }
