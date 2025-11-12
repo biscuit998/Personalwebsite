@@ -1,9 +1,10 @@
 backend:
   name: github
-  repo: biscuit998/Personalwebsite
+  repo: biscuit998/Personalwebsite      # 對應您的 GitHub 倉庫
   branch: main
-  base_url: https://personalwebsitebackend.bliss9988420.workers.dev
-  auth_endpoint: oauth/authorize
+  base_url: https://personalwebsitebackend.bliss9988420.workers.dev  # OAuth 代理
+  auth_endpoint: auth            # 改為 GitHub 預設的 /auth 路徑
+  site_domain: personalwebsite-1cd.pages.dev  # 站點域名，用於產生 site_id
 
 media_folder: "images"
 public_folder: "/images"
@@ -39,3 +40,4 @@ collections:
             fields:
               - { name: text, label: 內容, widget: text }
               - { name: author, label: 署名, widget: string, required: false }
+
