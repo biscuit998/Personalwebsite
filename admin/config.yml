@@ -1,12 +1,10 @@
 backend:
   name: github
-  repo: biscuit998/Personalwebsite
+  repo: biscuit998/Personalwebsite   # ← 改成你的 GitHub repo
   branch: main
 
-media_folder: "static/uploads"
+media_folder: "static/uploads"       # 圖片存放在 repo
 public_folder: "/static/uploads"
-
-publish_mode: editorial_workflow
 
 collections:
   - name: site
@@ -15,9 +13,8 @@ collections:
       preview: false
     files:
       - file: "data/site.json"
-        label: 基本資訊
+        label: 站點內容
         name: basics
-        format: json   # ← 因為我們要寫入 JSON 檔
         fields:
           - { label: 公司名稱, name: company, widget: string }
           - { label: 標語, name: tagline, widget: string, required: false }
@@ -26,14 +23,20 @@ collections:
           - { label: 電話, name: phone, widget: string }
           - { label: 電郵, name: email, widget: string }
           - { label: WhatsApp, name: whatsapp, widget: string, required: false }
-          - { label: 封面圖片(URL), name: cover, widget: string, required: false }
-          - { label: Google 地圖 Embed, name: map_embed, widget: text, required: false }
-          - label: 服務項目
-            name: services
+          - { label: Logo 圖片(URL), name: logo, widget: string, required: false }
+          - label: 現貨產品
+            name: products
             widget: list
             fields:
-              - { label: 標題, name: title, widget: string }
+              - { label: 名稱, name: title, widget: string }
+              - { label: 圖片(URL), name: image, widget: string, required: false }
               - label: 賣點
                 name: points
                 widget: list
                 field: { label: 條目, name: item, widget: string }
+          - label: 客戶反饋
+            name: feedbacks
+            widget: list
+            fields:
+              - { label: 內容, name: quote, widget: text }
+              - { label: 署名, name: author, widget: string, required: false }
