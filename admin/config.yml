@@ -1,9 +1,9 @@
 backend:
   name: github
-  repo: biscuit998/Personalwebsite
+  repo: biscuit998/Personalwebsite   # 你的 GitHub repo
   branch: main
   base_url: https://personalwebsitebackend.bliss9988420.workers.dev
-  auth_endpoint: /oauth/authorize
+  auth_endpoint: oauth/authorize
 
 media_folder: "static/uploads"
 public_folder: "/static/uploads"
@@ -13,18 +13,18 @@ collections:
     label: 站點設定
     files:
       - file: "data/site.json"
-        label: 基本資料
-        name: basics
+        label: 網站內容
+        name: site
         fields:
-          - { label: 公司名稱, name: company, widget: string }
-          - { label: 首屏標題, name: hero_title, widget: string }
-          - { label: 首屏說明, name: hero_desc, widget: text }
+          - { label: 公司名稱, name: company, widget: string, required: false }
+          - { label: 首屏標題, name: hero_title, widget: string, required: false }
+          - { label: 首屏說明, name: hero_desc, widget: text, required: false }
           - label: 現貨產品
             name: products
             widget: list
             fields:
               - { label: 標題, name: title, widget: string }
-              - { label: 圖片, name: img, widget: image }
+              - { label: 圖片, name: img, widget: image, required: false }
               - label: 特點
                 name: points
                 widget: list
@@ -35,3 +35,6 @@ collections:
             fields:
               - { label: 內容, name: text, widget: text }
               - { label: 署名, name: author, widget: string, required: false }
+          - { label: 電話, name: phone, widget: string, required: false }
+          - { label: 電郵, name: email, widget: string, required: false }
+          - { label: WhatsApp, name: whatsapp, widget: string, required: false }
