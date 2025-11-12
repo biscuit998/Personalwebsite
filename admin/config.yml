@@ -1,37 +1,39 @@
-<!--
-  backend:
-    name: github
-    repo: yourname/yourrepo   # 改成你的 GitHub 儲存庫
-    branch: main
-    base_url: https://your-oauth-proxy.example.com  # 若使用 Netlify/Cloudflare Pages，可省略；或用 opensource oauth proxy
-  media_folder: "static/uploads"     # 圖片存放於 repo
-  public_folder: "/static/uploads"
+backend:
+  name: github
+  repo: biscuit998/Personalwebsite
+  branch: main
 
-  collections:
-    - name: site
-      label: 站點設定
-      editor:
-        preview: false
-      files:
-        - file: "data/site.json"
-          label: 基本資訊
-          name: basics
-          fields:
-            - { label: 公司名稱, name: company, widget: string }
-            - { label: 標語, name: tagline, widget: string, required: false }
-            - { label: 首屏標題, name: hero_title, widget: text }
-            - { label: 首屏說明, name: hero_desc, widget: text }
-            - { label: 電話, name: phone, widget: string }
-            - { label: 電郵, name: email, widget: string }
-            - { label: WhatsApp, name: whatsapp, widget: string, required: false }
-            - { label: 封面圖片(URL), name: cover, widget: string, required: false }
-            - { label: Google 地圖 Embed, name: map_embed, widget: text, required: false }
-            - label: 服務項目
-              name: services
-              widget: list
-              fields:
-                - { label: 標題, name: title, widget: string }
-                - label: 賣點
-                  name: points
-                  widget: list
-                  field: { label: 條目, name: item, widget: string }
+media_folder: "static/uploads"
+public_folder: "/static/uploads"
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: site
+    label: 站點設定
+    editor:
+      preview: false
+    files:
+      - file: "data/site.json"
+        label: 基本資訊
+        name: basics
+        format: json   # ← 因為我們要寫入 JSON 檔
+        fields:
+          - { label: 公司名稱, name: company, widget: string }
+          - { label: 標語, name: tagline, widget: string, required: false }
+          - { label: 首屏標題, name: hero_title, widget: text }
+          - { label: 首屏說明, name: hero_desc, widget: text }
+          - { label: 電話, name: phone, widget: string }
+          - { label: 電郵, name: email, widget: string }
+          - { label: WhatsApp, name: whatsapp, widget: string, required: false }
+          - { label: 封面圖片(URL), name: cover, widget: string, required: false }
+          - { label: Google 地圖 Embed, name: map_embed, widget: text, required: false }
+          - label: 服務項目
+            name: services
+            widget: list
+            fields:
+              - { label: 標題, name: title, widget: string }
+              - label: 賣點
+                name: points
+                widget: list
+                field: { label: 條目, name: item, widget: string }
