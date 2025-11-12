@@ -3,26 +3,41 @@ backend:
   repo: biscuit998/Personalwebsite
   branch: main
   base_url: https://personalwebsitebackend.bliss9988420.workers.dev
-  auth_endpoint: /auth
+  auth_endpoint: oauth/authorize
+
+site_url: https://personalwebsite-1cd.pages.dev
+
 media_folder: "static/uploads"
 public_folder: "/static/uploads"
 
 collections:
   - name: site
     label: 站點設定
-    editor: { preview: false }
+    editor:
+      preview: false
     files:
       - file: "data/site.json"
-        label: 基本資訊
+        label: 網站內容
         name: basics
         fields:
           - { label: 公司名稱, name: company, widget: string }
-          - { label: 標語, name: tagline, widget: string, required: false }
-          - { label: 首屏標題, name: hero_title, widget: text }
+          - { label: 首屏標題, name: hero_title, widget: string }
           - { label: 首屏說明, name: hero_desc, widget: text }
-          - { label: 電話, name: phone, widget: string }
-          - { label: 電郵, name: email, widget: string }
-          - { label: WhatsApp, name: whatsapp, widget: string, required: false }
-          - { label: 封面圖片, name: cover, widget: image, required: false }
-  # 之後我可以幫你再加：products、feedback 兩個集合
 
+          - label: 現貨產品
+            name: products
+            widget: list
+            fields:
+              - { label: 標題, name: title, widget: string }
+              - { label: 圖片, name: img, widget: image }
+              - label: 特點
+                name: points
+                widget: list
+                field: { label: 條目, name: item, widget: string }
+
+          - label: 客戶反饋
+            name: feedback
+            widget: list
+            fields:
+              - { label: 內容, name: text, widget: text }
+              - { label: 署名, name: author, widget: string, required: false }
