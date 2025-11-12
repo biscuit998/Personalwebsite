@@ -3,17 +3,18 @@ backend:
   repo: biscuit998/Personalwebsite
   branch: main
   base_url: https://personalwebsitebackend.bliss9988420.workers.dev
-  auth_endpoint: oauth/authorize
+  auth_endpoint: /oauth/authorize
 
 media_folder: "static/uploads"
 public_folder: "/static/uploads"
+publish_mode: simple
 
 collections:
   - name: site
     label: 站點設定
     files:
       - file: "data/site.json"
-        label: 基本資料
+        label: 網站內容
         name: basics
         fields:
           - { label: 公司名稱, name: company, widget: string }
@@ -34,4 +35,4 @@ collections:
             widget: list
             fields:
               - { label: 內容, name: text, widget: text }
-              - { label: 署名, name: author, widget: string }
+              - { label: 署名, name: author, widget: string, required: false }
