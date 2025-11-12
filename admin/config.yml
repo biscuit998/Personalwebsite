@@ -3,14 +3,14 @@ backend:
   repo: biscuit998/Personalwebsite
   branch: main
   base_url: https://personalwebsitebackend.bliss9988420.workers.dev
-  auth_endpoint: oauth/authorize
+  auth_endpoint: /oauth/authorize
+
 media_folder: "static/uploads"
 public_folder: "/static/uploads"
 
 collections:
   - name: site
     label: 站點設定
-    editor: { preview: false }
     files:
       - file: "data/site.json"
         label: 基本資料
