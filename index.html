@@ -13,233 +13,126 @@
   <style>
     :root{--bg:#0b0d10;--card:#12161c;--text:#e8edf2;--muted:#a8b3bf;--accent:#4cc9f0;--accent2:#80ffdb;--border:#1f2530}
     html,body{height:100%}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans",sans-serif;background:linear-gradient(180deg,#0a0c10, #0b0d10 40%, #0a0c10);color:var(--text);}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans",sans-serif;background:linear-gradient(180deg,#0a0c10,#0b0d10 40%,#0a0c10);color:var(--text)}
     a{color:var(--accent);text-decoration:none}
     a:hover{opacity:.9}
     .container{max-width:1040px;margin:0 auto;padding:24px}
     .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
     .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.3px}
     .logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 6px 24px rgba(76,201,240,.3)}
-    .btn{display:inline-block;padding:10px 16px;border-radius:12px;background:var(--accent);color:#081018;font-weight:700}
+    .btn{display:inline-block;padding:10px 16px;border-radius:12px;background:var(--accent);color:#081018;font-weight:700;border:none;cursor:pointer}
     .btn.secondary{background:transparent;border:1px solid var(--border);color:var(--text)}
-    .btn:active{transform:translateY(1px)}
-    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:36px 0}
+    .btn.active{background:var(--accent2);color:#081018}
+    .hero{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:36px 0}
     .hero h1{font-size:clamp(28px,4vw,44px);line-height:1.15;margin:.3em 0}
     .hero p{color:var(--muted);font-size:18px}
     .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px}
     .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     .section{padding:28px 0}
-    .kpis{display:flex;gap:18px;flex-wrap:wrap}
-    .kpi{flex:1 1 160px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px}
-    .kpi b{font-size:22px}
     .list{margin:0;padding:0;list-style:none;display:grid;gap:10px}
-    .list li{display:flex;gap:10px;align-items:flex-start}
     .muted{color:var(--muted)}
-    .footer{border-top:1px solid var(--border);margin-top:32px;padding:24px 0;color:var(--muted);font-size:14px}
-    .badge{display:inline-block;background:rgba(128,255,219,.1);color:var(--accent2);border:1px solid rgba(128,255,219,.25);padding:4px 10px;border-radius:999px;font-size:12px}
-    .contact-card{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .map{width:100%;height:280px;border:0;border-radius:14px;filter:grayscale(.1) brightness(.95)}
-    @media (max-width:900px){.hero{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}.contact-card{grid-template-columns:1fr}}
+    .footer{border-top:1px solid var(--border);margin-top:32px;padding:24px 0;color:var(--muted);font-size:14px;text-align:center}
+    @media(max-width:900px){.grid-3{grid-template-columns:1fr}}
   </style>
-  <!-- 動態載入站點資料（由 CMS 產生的 JSON） -->
-  <script>
-    async function loadData(){
-      try{
-        const res = await fetch('/data/site.json',{cache:'no-store'});
-        if(!res.ok) throw new Error('載入資料失敗');
-        const data = await res.json();
-        // 替換品牌/標題/聯絡資料
-        document.title = `${data.company} — ${data.tagline||'專業服務'}`;
-        document.querySelector('.brand').lastChild.nodeValue = data.company;
-        document.querySelector('#heroTitle').innerHTML = data.hero_title;
-        document.querySelector('#heroDesc').textContent = data.hero_desc;
-        document.querySelector('#phone').href = `tel:${data.phone}`;
-        document.querySelector('#phone').textContent = data.phone;
-        document.querySelector('#email').href = `mailto:${data.email}`;
-        document.querySelector('#email').textContent = data.email;
-        document.querySelector('#wa').href = `https://wa.me/${data.whatsapp}`;
-        // 服務項
-        const slots = Array.from(document.querySelectorAll('[data-service]'));
-        slots.forEach((el,i)=>{
-          const s = data.services[i];
-          if(!s) return;
-          el.querySelector('h3').textContent = s.title;
-          const ul = el.querySelector('ul');
-          ul.innerHTML = s.points.map(p=>`<li>✔ ${p}</li>`).join('');
-        });
-        // 地圖
-        if(data.map_embed) document.querySelector('.map').src = data.map_embed;
-        // 封面
-        if(data.cover) document.querySelector('#cover').src = data.cover;
-      }catch(e){console.warn(e)}
-    }
-    addEventListener('DOMContentLoaded',loadData);
-  </script>
 </head>
 <body>
   <div class="container">
     <nav class="nav">
-      <div class="brand"><div class="logo" aria-hidden="true"></div>【公司名稱】</div>
+      <div class="brand">
+        <img src="images/logo.png" alt="公司Logo" style="width:36px;height:36px;border-radius:8px;object-fit:cover;">
+        【公司名稱】
+      </div>
       <div class="nav-actions" style="display:flex;gap:10px">
-        <a class="btn secondary" href="#services">服務內容</a>
         <a class="btn" href="#contact">立即聯絡</a>
       </div>
     </nav>
 
     <header class="hero card">
-      <div>
-        <span class="badge">值得信賴的【行業/領域】夥伴</span>
-        <h1 id="heroTitle">用最簡單的方式，讓客戶<span style="color:var(--accent)">固定找到你</span></h1>
-        <p><span id="heroDesc">我們提供【關鍵服務1、2、3】與到場支援。可開立收據、支援線上/離線洽談與合約。服務時間：週一至週六 09:00–18:00。</span></p>
-        <div style="display:flex;gap:10px;margin-top:12px">
-          <a class="btn" href="#contact">取得報價</a>
-          <a class="btn secondary" href="#about">了解我們</a>
-        </div>
-        <div class="kpis" style="margin-top:16px">
-          <div class="kpi"><b>200+</b><div class="muted">已服務客戶</div></div>
-          <div class="kpi"><b>4.9★</b><div class="muted">滿意度評價</div></div>
-          <div class="kpi"><b>24h</b><div class="muted">工作日內回覆</div></div>
-        </div>
-      </div>
-      <div class="card" aria-label="封面圖/作品集">
-        <img id="cover" src="cover.jpg" alt="代表形象或作品照片" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border)">
-        <p class="muted" style="margin:.6em 0 0">可替換為你的品牌照片、作品合輯或辦公室一景。</p>
+      <span class="badge">值得信賴的【行業/領域】夥伴</span>
+      <h1 id="heroTitle">用最簡單的方式，讓客戶<span style="color:var(--accent)">固定找到你</span></h1>
+      <p><span id="heroDesc">我們提供【關鍵服務1、2、3】與到場支援。可開立收據、支援線上/離線洽談與合約。服務時間：週一至週六 09:00–18:00。</span></p>
+      <div class="seg" style="display:inline-flex;gap:0;margin-top:12px;border:1px solid var(--border);border-radius:12px;overflow:hidden">
+        <button id="tabProducts" class="btn active" onclick="showTab('products')">現貨產品</button>
+        <button id="tabFeedback" class="btn secondary" onclick="showTab('feedback')">客戶反饋</button>
       </div>
     </header>
 
-    <section id="services" class="section">
-      <h2>我們的服務</h2>
+    <section id="products" class="section" style="display:block">
+      <h2>現貨產品</h2>
       <div class="grid-3">
         <div class="card" data-service>
-          <h3>【服務 A】</h3>
-            <img src="images/resize.jpg" alt="服務A圖片" style="width:100%;border-radius:12px;margin-bottom:10px">
+          <h3>【產品 A】</h3>
+          <img src="images/service-a.jpg" alt="產品A圖片" style="width:100%;border-radius:12px;margin-bottom:10px">
           <ul class="list">
-            <li>✔ 專業重點賣點 1</li>
+            <li>✔ 產品特點 1</li>
+            <li>✔ 產品特點 2</li>
           </ul>
         </div>
         <div class="card" data-service>
-          <h3>【服務 B】</h3>
-          <img src="images/resize.jpg" alt="服務A圖片" style="width:100%;border-radius:12px;margin-bottom:10px">
+          <h3>【產品 B】</h3>
+          <img src="images/service-b.jpg" alt="產品B圖片" style="width:100%;border-radius:12px;margin-bottom:10px">
           <ul class="list">
-            <li>✔ 專業重點賣點 1</li>
+            <li>✔ 產品特點 1</li>
+            <li>✔ 產品特點 2</li>
           </ul>
         </div>
         <div class="card" data-service>
-          <h3>【服務 C】</h3>
-          <img src="images/resize.jpg" alt="服務A圖片" style="width:100%;border-radius:12px;margin-bottom:10px">
+          <h3>【產品 C】</h3>
+          <img src="images/service-c.jpg" alt="產品C圖片" style="width:100%;border-radius:12px;margin-bottom:10px">
           <ul class="list">
-            <li>✔ 專業重點賣點 1</li>
+            <li>✔ 產品特點 1</li>
+            <li>✔ 產品特點 2</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="about" class="section">
-      <h2>關於我們</h2>
-      <div class="card">
-        <p>【公司簡介】你可以在這裡放入品牌故事、團隊背景、核心價值，或展示合作夥伴與客戶名單。</p>
+    <section id="feedback" class="section" style="display:none">
+      <h2>客戶反饋</h2>
+      <div class="grid-3">
+        <div class="card">
+          <p>「服務很好，效率高，溝通順暢！」</p>
+          <p class="muted">— 客戶 A</p>
+        </div>
+        <div class="card">
+          <p>「產品品質穩定，出貨迅速，非常值得信賴。」</p>
+          <p class="muted">— 客戶 B</p>
+        </div>
+        <div class="card">
+          <p>「回覆快速、態度專業，會再合作。」</p>
+          <p class="muted">— 客戶 C</p>
+        </div>
       </div>
     </section>
 
     <section id="contact" class="section">
       <h2>聯絡方式</h2>
-      <div class="contact-card">
-        <div class="card">
-          <ul class="list">
-            <li>📞 電話：<a id="phone" href="tel:你的電話">你的電話</a></li>
-            <li>✉️ 電郵：<a id="email" href="mailto:你@網域">你@網域</a></li>
-            <li>💬 WhatsApp：<a id="wa" href="https://wa.me/你的電話" target="_blank" rel="noopener">快速對話</a></li>
-            <li>📍 地址：<span class="muted">你的地址（可選）</span></li>
-            <li>🕘 營業時間：週一–週六 09:00–18:00</li>
-          </ul>
-          <p class="muted">* 靜態網站無後端表單。若要表單收件，可改用 mailto、WhatsApp 或第三方表單服務（如 Formspree、Netlify Forms）。</p>
-        </div>
+      <div class="card">
+        <ul class="list">
+          <li>📞 電話：<a id="phone" href="tel:你的電話">你的電話</a></li>
+          <li>✉️ 電郵：<a id="email" href="mailto:你@網域">你@網域</a></li>
+          <li>💬 WhatsApp：<a id="wa" href="https://wa.me/你的電話" target="_blank" rel="noopener">快速對話</a></li>
+          <li>🕘 營業時間：週一–週六 09:00–18:00</li>
+        </ul>
       </div>
     </section>
 
     <footer class="footer">
       <div>© <span id="year"></span> 【公司名稱】 • <a href="/privacy.html">隱私權</a> • <a href="/terms.html">服務條款</a></div>
-      <div class="muted">統一的對外入口與聯絡方式，讓老客戶回訪、陌生客戶找到你。</div>
     </footer>
   </div>
-  <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
-  
-  <!-- 提供 CMS 後台與內容資料（請在你的專案根目錄建立下列檔案） -->
-  <!-- /admin/index.html -->
-  <!--
-  <!doctype html>
-  <html lang="zh-Hant">
-    <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>Admin — 站點管理</title>
-      <link rel="stylesheet" href="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.css" />
-    </head>
-    <body>
-      <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    </body>
-  </html>
-  -->
 
-  <!-- /admin/config.yml （以 GitHub 儲存庫為後端，透過 OAuth 登入） -->
-  <!--
-  backend:
-    name: github
-    repo: yourname/yourrepo   # 改成你的 GitHub 儲存庫
-    branch: main
-    base_url: https://your-oauth-proxy.example.com  # 若使用 Netlify/Cloudflare Pages，可省略；或用 opensource oauth proxy
-  media_folder: "static/uploads"     # 圖片存放於 repo
-  public_folder: "/static/uploads"
-
-  collections:
-    - name: site
-      label: 站點設定
-      editor:
-        preview: false
-      files:
-        - file: "data/site.json"
-          label: 基本資訊
-          name: basics
-          fields:
-            - { label: 公司名稱, name: company, widget: string }
-            - { label: 標語, name: tagline, widget: string, required: false }
-            - { label: 首屏標題, name: hero_title, widget: text }
-            - { label: 首屏說明, name: hero_desc, widget: text }
-            - { label: 電話, name: phone, widget: string }
-            - { label: 電郵, name: email, widget: string }
-            - { label: WhatsApp, name: whatsapp, widget: string, required: false }
-            - { label: 封面圖片(URL), name: cover, widget: string, required: false }
-            - { label: Google 地圖 Embed, name: map_embed, widget: text, required: false }
-            - label: 服務項目
-              name: services
-              widget: list
-              fields:
-                - { label: 標題, name: title, widget: string }
-                - label: 賣點
-                  name: points
-                  widget: list
-                  field: { label: 條目, name: item, widget: string }
-  -->
-
-  <!-- /data/site.json （CMS 會寫入/更新此檔） -->
-  <!--
-  {
-    "company": "你的公司",
-    "tagline": "專業貼心，迅速可靠",
-    "hero_title": "用最簡單的方式，讓客戶固定找到你",
-    "hero_desc": "我們提供關鍵服務，支援線上/離線洽談與合約。服務時間：週一至週六 09:00–18:00。",
-    "phone": "852-1234-5678",
-    "email": "hello@example.com",
-    "whatsapp": "85212345678",
-    "cover": "/static/uploads/cover.jpg",
-    "map_embed": "https://www.google.com/maps/embed?...",
-    "services": [
-      {"title":"服務 A","points":["重點 1","重點 2","重點 3"]},
-      {"title":"服務 B","points":["重點 1","重點 2"]},
-      {"title":"服務 C","points":["重點 1"]}
-    ]
-  }
-  -->
-
+  <script>
+    document.getElementById('year').textContent=new Date().getFullYear();
+    function showTab(which){
+      const isProducts = which==='products';
+      document.getElementById('tabProducts').classList.toggle('active',isProducts);
+      document.getElementById('tabProducts').classList.toggle('secondary',!isProducts);
+      document.getElementById('tabFeedback').classList.toggle('active',!isProducts);
+      document.getElementById('tabFeedback').classList.toggle('secondary',isProducts);
+      document.getElementById('products').style.display=isProducts?'block':'none';
+      document.getElementById('feedback').style.display=isProducts?'none':'block';
+    }
+  </script>
 </body>
 </html>
