@@ -35,10 +35,16 @@
   <script src="https://unpkg.com/decap-cms@^3.3.0/dist/decap-cms.js"></script>
 </head>
 <body>
+  <!-- 只要保留這一支腳本，千萬不要重複載入或再寫 CMS.init -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- 只載入一次 decap-cms；不要再引任何其他 JS/CSS -->
+    <script src="https://unpkg.com/decap-cms@3.3.1/dist/decap-cms.js"></script>
+
   <!-- 可省略 CMS.init；預設會讀 /admin/config.yml -->
   <script>
     // CMS.init({ config: { load_config_file: true } });
   </script>
 </body>
 </html>
+
 
