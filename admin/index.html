@@ -5,28 +5,99 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin</title>
 
-  <!-- 接住 Worker 回傳的 token，寫進 localStorage -->
+  <!-- 讓 Decap 不要自動啟動，等我們準備好再 init -->
+  <script>window.CMS_MANUAL_INIT = true;</script>
+
+  <!-- 可選：樣式（用 jsDelivr，避免 ORB 擋 CSS），載不到也不影響功能 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/decap-cms@3.3.1/dist/decap-cms.css" />
+
+  <style>
+    body{font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial;}
+    #boot {position: fixed; inset: 0; display:flex; align-items:center; justify-content:center; background:#f5f6f8;}
+    #boot .card{background:#fff; padding:20px 24px; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,.08); width:min(520px,90vw)}
+    #boot .muted{color:#6b7280; font-size:14px; margin-top:8px}
+    #boot .err{white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#b91c1c; background:#fff5f5; padding:10px; border-radius:8px; margin-top:8px}
+    #action{margin-top:10px; display:flex; gap:8px}
+    button{padding:8px 12px; border-radius:8px; border:1px solid #d1d5db; background:#fff; cursor:pointer}
+    button.primary{background:#111827; color:#fff; border-color:#111827}
+  </style>
+
+  <!-- Decap CMS（只載入一次，使用 jsDelivr） -->
+  <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.3.1/dist/decap-cms.js"></script>
+</head>
+<body>
+  <!-- 啟動面板（避免整頁空白） -->
+  <div id="boot">
+    <div class="card">
+      <div id="msg"><b>Decap CMS 正在啟動…</b></div>
+      <div class="muted">若停在這裡超過 5 秒，點「重新嘗試」或查看錯誤訊息。</div>
+      <div id="action">
+        <button class="primary" id="retry">重新嘗試</button>
+        <button id="clear">清除登入狀態</button>
+      </div>
+      <div id="err" class="err" style="display:none"></div>
+    </div>
+  </div>
+
   <script>
+    // === 1) 接住 Worker 回傳的 token，寫進 localStorage（避免登入後沒有狀態） ===
     (function () {
+      const ORIGIN = 'https://personalwebsitebackend.bliss9988420.workers.dev';
       window.addEventListener('message', function (e) {
-        if (
-          e.origin === 'https://personalwebsitebackend.bliss9988420.workers.dev' &&
-          typeof e.data === 'string' &&
-          e.data.startsWith('authorization:github:success:')
-        ) {
-          var token = e.data.split(':').pop();
-          localStorage.setItem(
-            'decap-cms.user',
-            JSON.stringify({ login: 'github', provider: 'github', token: token })
-          );
-          location.reload();
+        try {
+          if (e.origin === ORIGIN && typeof e.data === 'string' && e.data.startsWith('authorization:github:success:')) {
+            const token = e.data.split(':').pop();
+            localStorage.setItem('decap-cms.user', JSON.stringify({ login: 'github', provider: 'github', token }));
+            location.reload();
+          }
+        } catch (err) {
+          reportErr('寫入 decap-cms.user 失敗：\n' + (err && err.stack || err));
         }
       });
     })();
-  </script>
 
-  <!-- 只載入一次 Decap JS（固定 3.3.1） -->
-  <script src="https://unpkg.com/decap-cms@3.3.1/dist/decap-cms.js"></script>
-</head>
-<body></body>
+    // === 2) 手動初始化 Decap，並把任何錯誤印在畫面上（避免整頁空白） ===
+    async function initCMS() {
+      setMsg('Decap CMS 載入中…');
+      try {
+        // 確認 CMS 物件存在
+        if (typeof window.CMS !== 'object') throw new Error('CMS 物件不存在，可能是 decap-cms.js 未載入');
+
+        // 顯示目前是否已登入（有無 localStorage）
+        const saved = localStorage.getItem('decap-cms.user');
+        setMsg(saved ? '偵測到登入狀態，正在開啟後台…' : '尚未登入，將顯示登入畫面…');
+
+        // 讓 Decap 從 /admin/config.yml 載入設定
+        CMS.init({ config: { load_config_file: true } });
+
+        // 成功後移除啟動面板
+        removeBoot();
+      } catch (err) {
+        reportErr(err && err.stack ? err.stack : String(err));
+      }
+    }
+
+    // === 3) 輕量 UI 控制 ===
+    function setMsg(t){ document.getElementById('msg').innerHTML = '<b>'+t+'</b>'; }
+    function reportErr(t){
+      document.getElementById('err').style.display = 'block';
+      document.getElementById('err').textContent = t;
+      setMsg('發生錯誤，可查看下方訊息並點「重新嘗試」。');
+      console.error('[Admin Boot Error]', t);
+    }
+    function removeBoot(){ const b = document.getElementById('boot'); b && b.parentNode && b.parentNode.removeChild(b); }
+
+    // === 4) 控制按鈕 ===
+    document.getElementById('retry').addEventListener('click', initCMS);
+    document.getElementById('clear').addEventListener('click', () => {
+      localStorage.removeItem('decap-cms.user');
+      localStorage.removeItem('netlify-cms.user');
+      sessionStorage.clear();
+      location.reload();
+    });
+
+    // 啟動
+    initCMS();
+  </script>
+</body>
 </html>
