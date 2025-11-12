@@ -1,19 +1,19 @@
 backend:
   name: github
-  repo: biscuit998/Personalwebsite   # ← 改成你的 GitHub repo
+  repo: biscuit998/Personalwebsite
   branch: main
-
-media_folder: "static/uploads"       # 圖片存放在 repo
+  base_url: https://你的-worker-subdomain.workers.dev
+  auth_endpoint: /auth
+media_folder: "static/uploads"
 public_folder: "/static/uploads"
 
 collections:
   - name: site
     label: 站點設定
-    editor:
-      preview: false
+    editor: { preview: false }
     files:
       - file: "data/site.json"
-        label: 站點內容
+        label: 基本資訊
         name: basics
         fields:
           - { label: 公司名稱, name: company, widget: string }
@@ -23,20 +23,5 @@ collections:
           - { label: 電話, name: phone, widget: string }
           - { label: 電郵, name: email, widget: string }
           - { label: WhatsApp, name: whatsapp, widget: string, required: false }
-          - { label: Logo 圖片(URL), name: logo, widget: string, required: false }
-          - label: 現貨產品
-            name: products
-            widget: list
-            fields:
-              - { label: 名稱, name: title, widget: string }
-              - { label: 圖片(URL), name: image, widget: string, required: false }
-              - label: 賣點
-                name: points
-                widget: list
-                field: { label: 條目, name: item, widget: string }
-          - label: 客戶反饋
-            name: feedbacks
-            widget: list
-            fields:
-              - { label: 內容, name: quote, widget: text }
-              - { label: 署名, name: author, widget: string, required: false }
+          - { label: 封面圖片, name: cover, widget: image, required: false }
+  # 之後我可以幫你再加：products、feedback 兩個集合
