@@ -1,12 +1,42 @@
 <!doctype html>
 <html lang="zh-Hant">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Admin — Decap CMS</title>
-  </head>
-  <body>
-    <!-- 只載入一次 decap-cms；不要再引任何其他 JS/CSS -->
-    <script src="https://unpkg.com/decap-cms@3.3.1/dist/decap-cms.js"></script>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin</title>
+
+  <!-- 先掛一個 listener，把 Worker 傳回的 token 寫入 localStorage -->
+  <script>
+    (function () {
+      window.addEventListener('message', function (e) {
+        if (
+          e.origin === 'https://personalwebsitebackend.bliss9988420.workers.dev' &&
+          typeof e.data === 'string' &&
+          e.data.startsWith('authorization:github:success:')
+        ) {
+          var token = e.data.split(':').pop();
+          try {
+            localStorage.setItem(
+              'decap-cms.user',
+              JSON.stringify({ login: 'github', provider: 'github', token: token })
+            );
+            // 可選：寫完立刻刷新，讓 Decap 讀到登入狀態
+            location.reload();
+          } catch (err) {
+            console.error('寫入 decap-cms.user 失敗：', err);
+          }
+        }
+      }, false);
+    })();
+  </script>
+
+  <!-- 載入 Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.3.0/dist/decap-cms.js"></script>
+</head>
+<body>
+  <!-- 可省略 CMS.init；預設會讀 /admin/config.yml -->
+  <script>
+    // CMS.init({ config: { load_config_file: true } });
+  </script>
+</body>
 </html>
