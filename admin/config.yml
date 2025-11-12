@@ -2,7 +2,7 @@ backend:
   name: github
   repo: biscuit998/Personalwebsite
   branch: main
-  base_url: https://你的-worker-subdomain.workers.dev
+  base_url: https://personalwebsitebackend.bliss9988420.workers.dev
   auth_endpoint: /auth
 media_folder: "static/uploads"
 public_folder: "/static/uploads"
@@ -25,3 +25,4 @@ collections:
           - { label: WhatsApp, name: whatsapp, widget: string, required: false }
           - { label: 封面圖片, name: cover, widget: image, required: false }
   # 之後我可以幫你再加：products、feedback 兩個集合
+
