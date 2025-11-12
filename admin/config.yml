@@ -4,26 +4,21 @@ backend:
   branch: main
   base_url: https://personalwebsitebackend.bliss9988420.workers.dev
   auth_endpoint: oauth/authorize
-
-site_url: https://personalwebsite-1cd.pages.dev
-
 media_folder: "static/uploads"
 public_folder: "/static/uploads"
 
 collections:
   - name: site
     label: 站點設定
-    editor:
-      preview: false
+    editor: { preview: false }
     files:
       - file: "data/site.json"
-        label: 網站內容
+        label: 基本資料
         name: basics
         fields:
           - { label: 公司名稱, name: company, widget: string }
           - { label: 首屏標題, name: hero_title, widget: string }
           - { label: 首屏說明, name: hero_desc, widget: text }
-
           - label: 現貨產品
             name: products
             widget: list
@@ -34,7 +29,6 @@ collections:
                 name: points
                 widget: list
                 field: { label: 條目, name: item, widget: string }
-
           - label: 客戶反饋
             name: feedback
             widget: list
