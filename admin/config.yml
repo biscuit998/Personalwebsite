@@ -3,7 +3,10 @@ backend:
   repo: biscuit998/Personalwebsite
   branch: main
   base_url: https://personalwebsitebackend.bliss9988420.workers.dev
-  auth_endpoint: /oauth/authorize
+  auth_endpoint: oauth/authorize
+media_folder: "static/uploads"
+public_folder: "/static/uploads"
+
 
 media_folder: "static/uploads"
 public_folder: "/static/uploads"
@@ -36,3 +39,4 @@ collections:
             fields:
               - { label: 內容, name: text, widget: text }
               - { label: 署名, name: author, widget: string, required: false }
+
