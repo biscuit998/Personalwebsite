@@ -10,10 +10,10 @@ public_folder: "/images"
 publish_mode: simple
 
 collections:
-  - name: site               # 唯一鍵
-    label: 網站內容          # 後台左邊顯示的名稱
+  - name: site
+    label: 網站內容
     files:
-      - name: siteData       # 單檔集合的唯一鍵
+      - name: siteData
         label: 站點資料
         file: data/site.json
         fields:
