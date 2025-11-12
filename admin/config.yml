@@ -1,4 +1,3 @@
-# admin/config.yml
 backend:
   name: github
   repo: biscuit998/Personalwebsite
@@ -11,29 +10,32 @@ public_folder: "/images"
 publish_mode: simple
 
 collections:
-  - name: site
-    label: 網站內容
-    file: data/site.json
-    fields:
-      - { name: company, label: 公司名稱, widget: string }
-      - { name: hero_title, label: 首屏標題（可含 <br>）, widget: text }
-      - { name: hero_desc,  label: 首屏描述, widget: text }
-      - { name: phone, label: 電話, widget: string, required: false }
-      - { name: email, label: Email, widget: string, required: false }
-      - { name: whatsapp, label: WhatsApp（只填數字）, widget: string, required: false }
-      - name: products
-        label: 產品
-        widget: list
+  - name: site               # 唯一鍵
+    label: 網站內容          # 後台左邊顯示的名稱
+    files:
+      - name: siteData       # 單檔集合的唯一鍵
+        label: 站點資料
+        file: data/site.json
         fields:
-          - { name: title, label: 標題, widget: string }
-          - { name: img, label: 圖片路徑（/images/...）, widget: string, required: false }
-          - name: points
-            label: 重點
+          - { name: company, label: 公司名稱, widget: string }
+          - { name: hero_title, label: 首屏標題（可含 <br>）, widget: text }
+          - { name: hero_desc,  label: 首屏描述, widget: text }
+          - { name: phone, label: 電話, widget: string, required: false }
+          - { name: email, label: Email, widget: string, required: false }
+          - { name: whatsapp, label: WhatsApp（只填數字）, widget: string, required: false }
+          - name: products
+            label: 產品
             widget: list
-            field: { name: text, label: 文字, widget: string }
-      - name: feedback
-        label: 客戶回饋
-        widget: list
-        fields:
-          - { name: text, label: 內容, widget: text }
-          - { name: author, label: 署名, widget: string, required: false }
+            fields:
+              - { name: title, label: 標題, widget: string }
+              - { name: img, label: 圖片路徑（/images/...）, widget: string, required: false }
+              - name: points
+                label: 重點
+                widget: list
+                field: { name: text, label: 文字, widget: string }
+          - name: feedback
+            label: 客戶回饋
+            widget: list
+            fields:
+              - { name: text, label: 內容, widget: text }
+              - { name: author, label: 署名, widget: string, required: false }
