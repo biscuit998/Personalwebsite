@@ -133,6 +133,84 @@
       document.getElementById('products').style.display=isProducts?'block':'none';
       document.getElementById('feedback').style.display=isProducts?'none':'block';
     }
+    document.getElementById('year').textContent = new Date().getFullYear();
+  function showTab(which){
+    const isProducts = which==='products';
+    document.getElementById('tabProducts').classList.toggle('active',isProducts);
+    document.getElementById('tabProducts').classList.toggle('secondary',!isProducts);
+    document.getElementById('tabFeedback').classList.toggle('active',!isProducts);
+    document.getElementById('tabFeedback').classList.toggle('secondary',isProducts);
+    document.getElementById('products').style.display = isProducts ? 'block' : 'none';
+    document.getElementById('feedback').style.display = isProducts ? 'none' : 'block';
+  }
+
+  // === 新增：把 data/site.json 綁到畫面 ===
+  (async function bindData(){
+    try {
+      const res = await fetch('data/site.json', { cache: 'no-cache' });
+      const data = await res.json();
+
+      // 公司名稱 / 首屏
+      if (data.company) {
+        const elBrand = document.getElementById('companyName');
+        const elFooter = document.getElementById('companyNameFooter');
+        if (elBrand) elBrand.textContent = data.company;
+        if (elFooter) elFooter.textContent = data.company;
+      }
+      if (data.hero_title) document.getElementById('heroTitle').innerHTML = data.hero_title;
+      if (data.hero_desc)  document.getElementById('heroDesc').textContent = data.hero_desc;
+
+      // 聯絡資訊
+      if (data.phone) {
+        const tel = document.getElementById('phone');
+        tel.textContent = data.phone;
+        tel.href = 'tel:' + data.phone.replace(/\s+/g,'');
+      }
+      if (data.email) {
+        const em = document.getElementById('email');
+        em.textContent = data.email;
+        em.href = 'mailto:' + data.email;
+      }
+      if (data.whatsapp) {
+        const wa = document.getElementById('wa');
+        wa.href = 'https://wa.me/' + String(data.whatsapp).replace(/\D+/g,'');
+      }
+
+      // 產品列表
+      const prodWrap = document.querySelector('#products .grid-3');
+      if (prodWrap) {
+        prodWrap.innerHTML = '';
+        (data.products || []).forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          const ul = (p.points || []).map(pt => `<li>✔ ${pt}</li>`).join('');
+          card.innerHTML = `
+            <h3>${p.title || ''}</h3>
+            ${p.img ? `<img src="${p.img}" alt="${p.title||''}" style="width:100%;border-radius:12px;margin-bottom:10px">` : ''}
+            <ul class="list">${ul}</ul>
+          `;
+          prodWrap.appendChild(card);
+        });
+      }
+
+      // 客戶回饋
+      const fbWrap = document.querySelector('#feedback .grid-3');
+      if (fbWrap) {
+        fbWrap.innerHTML = '';
+        (data.feedback || []).forEach(f => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <p>「${f.text || ''}」</p>
+            ${f.author ? `<p class="muted">— ${f.author}</p>` : ''}
+          `;
+          fbWrap.appendChild(card);
+        });
+      }
+    } catch (e) {
+      console.error('載入 data/site.json 失敗：', e);
+    }
+  })();
   </script>
 </body>
 </html>
