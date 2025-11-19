@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>綠禾種子行 — 專業農作物種子批發與零售</title>
+  <meta name="description" content="綠禾種子行專營各類農作物種子批發與零售，提供高發芽率蔬菜種子、花卉種子、香草種子與客製化配種方案，協助農友與園藝愛好者種出健康、穩定、高產量的作物。">
+
+  <!-- Open Graph / 分享設定 -->
+  <meta property="og:title" content="綠禾種子行">
+  <meta property="og:description" content="高發芽率、來源清晰、專業配種建議，從一顆好種子開始，陪你走過每一個豐收季節。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://你的網域">
+  <meta property="og:image" content="https://你的網域/og-image.jpg">
+
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --card:#12161c;
+      --text:#e8edf2;
+      --muted:#a8b3bf;
+      --accent:#4cc9f0;
+      --accent2:#80ffdb;
+      --border:#1f2530
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html,body{
+      height:100%;
+    }
+
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:linear-gradient(180deg,#0a0c10,#0b0d10 40%,#0a0c10);
+      color:var(--text);
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      color:var(--accent);
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    .container{
+      max-width:1080px;
+      margin:0 auto;
+      padding:1.5rem 1.25rem 3rem;
+    }
+
+    /* 導航列 */
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:1.5rem;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+      font-weight:600;
+      letter-spacing:.04em;
+    }
+
+    .logo{
+      width:32px;
+      height:32px;
+      border-radius:8px;
+      object-fit:cover;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+    }
+
+    .btn{
+      border:none;
+      outline:none;
+      font:inherit;
+      padding:.55rem 1.1rem;
+      border-radius:999px;
+      cursor:pointer;
+      background:var(--accent);
+      color:#020309;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.35rem;
+      transition:background .16s ease,transform .12s ease, box-shadow .16s ease;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .btn.secondary{
+      background:transparent;
+      color:var(--text);
+      border:1px solid var(--border);
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 8px 18px rgba(0,0,0,.45);
+    }
+
+    .btn.secondary:hover{
+      background:rgba(255,255,255,.04);
+      box-shadow:none;
+    }
+
+    .btn.active{
+      background:var(--accent2);
+      color:#020309;
+    }
+
+    /* Hero / 卡片基礎樣式 */
+    .hero{
+      padding:1.5rem 1.5rem 1.75rem;
+      border-radius:1rem;
+      background:radial-gradient(circle at top left,rgba(128,255,219,.12),transparent 55%),var(--card);
+      border:1px solid var(--border);
+      box-shadow:0 18px 45px rgba(0,0,0,.55);
+      margin-bottom:1.75rem;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      padding:.2rem .65rem;
+      border-radius:999px;
+      background:rgba(12,185,240,.08);
+      border:1px solid rgba(76,201,240,.4);
+      color:var(--accent);
+      font-size:.75rem;
+      margin-bottom:.75rem;
+    }
+
+    .badge::before{
+      content:'●';
+      font-size:.55rem;
+    }
+
+    h1{
+      font-size:1.9rem;
+      line-height:1.25;
+      margin:.1rem 0 .65rem;
+    }
+
+    h2{
+      font-size:1.2rem;
+      margin:0 0 .75rem;
+    }
+
+    h3{
+      font-size:1rem;
+      margin:0 0 .4rem;
+    }
+
+    p{
+      margin:.25rem 0 .9rem;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:.92rem;
+    }
+
+    .section{
+      margin-top:1.25rem;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:.86rem;
+    }
+
+    .card{
+      background:rgba(9,12,18,.94);
+      border-radius:.9rem;
+      border:1px solid var(--border);
+      padding:1rem .95rem 1.05rem;
+      box-shadow:0 10px 30px rgba(0,0,0,.55);
+      min-width:0;
+    }
+
+    .card img{
+      border-radius:.7rem;
+      margin:.4rem 0;
+      border:1px solid rgba(255,255,255,.03);
+    }
+
+    .list{
+      list-style:none;
+      padding-left:0;
+      margin:.35rem 0 0;
+      font-size:.86rem;
+      color:var(--muted);
+    }
+
+    .list li{
+      margin:.15rem 0;
+    }
+
+    /* 日期標籤 */
+    .date-label{
+      margin-top:.5rem;
+      font-size:.78rem;
+      color:var(--muted);
+      opacity:.8;
+    }
+
+    /* Segment tabs */
+    .seg{
+      display:inline-flex;
+      padding:.18rem;
+      border-radius:999px;
+      background:rgba(11,13,16,.7);
+      border:1px solid var(--border);
+      margin-top:.6rem;
+    }
+
+    .seg .btn{
+      padding:.35rem .9rem;
+      font-size:.85rem;
+      box-shadow:none;
+      border-radius:999px;
+    }
+
+    .seg .btn.secondary{
+      border:none;
+    }
+
+    /* 外層 slider 包一排卡片 + 左右箭頭 */
+    .slider{
+      position:relative;
+      margin-top:.6rem;
+    }
+
+    /* 橫向可滑動卡片列 */
+    .card-row{
+      display:flex;
+      gap:1.1rem;
+      overflow-x:auto;
+      padding:.3rem 2.2rem .4rem; /* 中間留空給左右箭頭 */
+      margin:0;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    .card-row > .card{
+      flex:0 0 260px;
+      scroll-snap-align:start;
+    }
+
+    .card-row::-webkit-scrollbar{
+      height:6px;
+    }
+
+    .card-row::-webkit-scrollbar-track{
+      background:transparent;
+    }
+
+    .card-row::-webkit-scrollbar-thumb{
+      background:rgba(255,255,255,.15);
+      border-radius:999px;
+    }
+
+    /* 左右箭頭按鈕 */
+    .scroll-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:32px;
+      height:32px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(5,8,13,.9);
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      padding:0;
+      font-size:1.2rem;
+      line-height:1;
+      box-shadow:0 10px 25px rgba(0,0,0,.6);
+      backdrop-filter:blur(4px);
+      z-index:2;
+    }
+
+    .scroll-btn:hover{
+      background:rgba(20,26,35,.98);
+    }
+
+    .scroll-btn.left{
+      left:.15rem;
+    }
+
+    .scroll-btn.right{
+      right:.15rem;
+    }
+
+    /* 聯絡區 */
+    #contact .card{
+      padding:1rem 1.1rem 1.15rem;
+    }
+
+    .footer{
+      margin-top:2.25rem;
+      padding-top:1.25rem;
+      border-top:1px solid var(--border);
+      font-size:.8rem;
+      color:var(--muted);
+    }
+
+    /* RWD */
+    @media(max-width:768px){
+      .nav{
+        flex-direction:row;
+        align-items:center;
+        gap:.75rem;
+      }
+
+      h1{
+        font-size:1.6rem;
+      }
+
+      .hero{
+        padding:1.25rem 1rem 1.4rem;
+      }
+
+      .card-row > .card{
+        flex:0 0 230px;
+      }
+
+      /* 小螢幕用手勢滑就好，可以選擇隱藏箭頭 */
+      .scroll-btn{
+        display:none;
+      }
+
+      .card-row{
+        padding:.3rem 0 .4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 導航列 -->
+    <nav class="nav">
+      <div class="brand">
+        <img src="images/logo.png" alt="綠禾種子行 Logo" class="logo">
+        <span id="companyName">綠禾種子行</span>
+      </div>
+      <div class="nav-actions">
+        <a class="btn" href="#contact">立即查詢</a>
+      </div>
+    </nav>
+
+    <!-- Hero + Tabs -->
+    <header class="hero card">
+      <span class="badge">專業農作物種子供應商</span>
+      <h1 id="heroTitle">
+        從一顆<span style="color:var(--accent)">好種子</span>，開始你的豐收季節
+      </h1>
+      <p>
+        <span id="heroDesc">
+          我們提供穩定、高發芽率的蔬菜、花卉與香草種子，嚴選來源並附上清楚栽培說明，無論是專業農友還是陽台園藝新手，都能在這裡找到適合的品種。
+        </span>
+      </p>
+
+      <!-- Tab 切換 -->
+      <div class="seg">
+        <button id="tabProducts" class="btn active" type="button" onclick="showTab('products')">
+          現貨種子
+        </button>
+        <button id="tabFeedback" class="btn secondary" type="button" onclick="showTab('feedback')">
+          客戶回饋
+        </button>
+      </div>
+
+      <!-- 產品列表（橫向滑動 + 左右箭頭） -->
+      <section id="products" class="section" style="display:block">
+        <h2>熱門種子品項</h2>
+        <div class="slider">
+          <button class="scroll-btn left" type="button" onclick="scrollRow('productsRow', -1)">‹</button>
+          <div class="card-row" id="productsRow">
+            <div class="card" data-service>
+              <h3>高發芽率蔬菜種子組</h3>
+              <img src="images/veg-seeds.jpg" alt="高發芽率蔬菜種子組">
+              <ul class="list">
+                <li>✔ 適合本地氣候的品種組合</li>
+                <li>✔ 經實測穩定發芽率與生長表現</li>
+                <li>✔ 附播種深度與間距建議</li>
+              </ul>
+              <p class="date-label">更新：2025-11-01</p>
+            </div>
+
+            <div class="card" data-service>
+              <h3>陽台花卉種子包</h3>
+              <img src="images/flower-seeds.jpg" alt="陽台花卉種子包">
+              <ul class="list">
+                <li>✔ 精選易開花、色彩豐富的品種</li>
+                <li>✔ 適合花盆、花槽栽培</li>
+                <li>✔ 附日照與澆水頻率建議</li>
+              </ul>
+              <p class="date-label">更新：2025-10-25</p>
+            </div>
+
+            <div class="card" data-service>
+              <h3>香草料理園套組</h3>
+              <img src="images/herb-seeds.jpg" alt="香草料理園套組">
+              <ul class="list">
+                <li>✔ 羅勒、迷迭香、薄荷等常用香草</li>
+                <li>✔ 附簡易盆栽栽培教學</li>
+                <li>✔ 適合初學者的小型香草園</li>
+              </ul>
+              <p class="date-label">更新：2025-10-10</p>
+            </div>
+
+            <div class="card" data-service>
+              <h3>根莖類高產組合</h3>
+              <img src="images/root-seeds.jpg" alt="根莖類高產組合">
+              <ul class="list">
+                <li>✔ 蘿蔔、胡蘿蔔、甜菜等根莖作物</li>
+                <li>✔ 針對鬆軟土壤優化品種</li>
+                <li>✔ 附行距建議與追肥節奏</li>
+              </ul>
+              <p class="date-label">更新：2025-09-30</p>
+            </div>
+
+            <div class="card" data-service>
+              <h3>綠肥與輪作種子套組</h3>
+              <img src="images/cover-crop.jpg" alt="綠肥與輪作種子套組">
+              <ul class="list">
+                <li>✔ 適合作為綠肥、保護土壤結構</li>
+                <li>✔ 幫助抑制雜草、改善地力</li>
+                <li>✔ 提供輪作建議與播種時機</li>
+              </ul>
+              <p class="date-label">更新：2025-09-15</p>
+            </div>
+
+            <div class="card" data-service>
+              <h3>耐熱夏季蔬菜精選</h3>
+              <img src="images/summer-veg.jpg" alt="耐熱夏季蔬菜精選">
+              <ul class="list">
+                <li>✔ 適合高溫環境的特選品種</li>
+                <li>✔ 減少抽苔與早衰風險</li>
+                <li>✔ 提供遮陰與灌溉管理建議</li>
+              </ul>
+              <p class="date-label">更新：2025-08-28</p>
+            </div>
+          </div>
+          <button class="scroll-btn right" type="button" onclick="scrollRow('productsRow', 1)">›</button>
+        </div>
+      </section>
+
+      <!-- 客戶回饋（橫向滑動 + 左右箭頭） -->
+      <section id="feedback" class="section" style="display:none">
+        <h2>客戶回饋</h2>
+        <div class="slider">
+          <button class="scroll-btn left" type="button" onclick="scrollRow('feedbackRow', -1)">‹</button>
+          <div class="card-row" id="feedbackRow">
+            <div class="card">
+              <p>「跟綠禾配合幾季下來，品種穩定、發芽率佳，報價透明，出貨也很準時。」</p>
+              <p class="muted">— 北部溫室蔬菜農場</p>
+              <p class="date-label">更新：2025-11-02</p>
+            </div>
+            <div class="card">
+              <p>「原本擔心陽台日照不足種不起來，店家給了很多實際建議，現在家裡每天都有新鮮香草。」</p>
+              <p class="muted">— 上班族陽台園藝愛好者</p>
+              <p class="date-label">更新：2025-10-20</p>
+            </div>
+            <div class="card">
+              <p>「幫學校社團採買種子，學生很好上手，說明也清楚，之後還會再回購。」</p>
+              <p class="muted">— 校園園藝社指導老師</p>
+              <p class="date-label">更新：2025-10-05</p>
+            </div>
+            <div class="card">
+              <p>「我們是小規模家族農場，店家會依照我們土壤跟灌溉條件，幫忙搭配適合的品種。」</p>
+              <p class="muted">— 家族型混作小農</p>
+              <p class="date-label">更新：2025-09-25</p>
+            </div>
+            <div class="card">
+              <p>「花卉種子開花期準、花色也符合說明，對我們在接婚禮訂單時很有幫助。」</p>
+              <p class="muted">— 花店與婚禮佈置合作夥伴</p>
+              <p class="date-label">更新：2025-09-12</p>
+            </div>
+            <div class="card">
+              <p>「有一批種子發芽率略低，回報後很快就協助檢測並補貨，售後服務讓人放心。」</p>
+              <p class="muted">— 中部露天栽培農場</p>
+              <p class="date-label">更新：2025-08-30</p>
+            </div>
+          </div>
+          <button class="scroll-btn right" type="button" onclick="scrollRow('feedbackRow', 1)">›</button>
+        </div>
+      </section>
+    </header>
+
+    <!-- 聯絡方式 -->
+    <section id="contact" class="section">
+      <h2>聯絡方式</h2>
+      <div class="card">
+        <ul class="list">
+          <li>📞 電話：<a id="phone" href="tel:你的電話">你的電話</a></li>
+          <li>✉️ 電郵：<a id="email" href="mailto:你@網域">你@網域</a></li>
+          <li>💬 WhatsApp：<a id="wa" href="https://wa.me/你的電話" target="_blank" rel="noopener noreferrer">WhatsApp 即時查詢</a></li>
+          <li>🕘 營業時間：週一–週六 09:00–18:00</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+      <div>
+        © <span id="year"></span> <span id="companyNameFooter">綠禾種子行</span> • 保留一切權利
+        ｜ <a href="/privacy.html">隱私權政策</a> ｜ <a href="/terms.html">服務條款</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // 自動填入年份
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Tab 切換
+    function showTab(which){
+      const isProducts = which === 'products';
+
+      document.getElementById('tabProducts').classList.toggle('active', isProducts);
+      document.getElementById('tabProducts').classList.toggle('secondary', !isProducts);
+      document.getElementById('tabFeedback').classList.toggle('active', !isProducts);
+      document.getElementById('tabFeedback').classList.toggle('secondary', isProducts);
+
+      document.getElementById('products').style.display = isProducts ? 'block' : 'none';
+      document.getElementById('feedback').style.display = isProducts ? 'none' : 'block';
+    }
+
+    // 左右箭頭控制橫向滑動
+    function scrollRow(rowId, direction){
+      const row = document.getElementById(rowId);
+      if(!row) return;
+
+      const card = row.querySelector('.card');
+      // 以單張卡片寬度（含間距）為基準捲動
+      const cardWidth = card ? card.getBoundingClientRect().width : row.clientWidth * 0.6;
+      const scrollAmount = cardWidth + 24; // 大約加上 gap
+
+      row.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+
+    // 從 data/site.json 綁定資料（如果有的話）
+    (async function bindData(){
+      try{
+        const res = await fetch('data/site.json', { cache: 'no-cache' });
+        if(!res.ok) return;
+
+        const data = await res.json();
+
+        // 公司名稱
+        if(data.company){
+          const elBrand = document.getElementById('companyName');
+          const elFooter = document.getElementById('companyNameFooter');
+          if(elBrand) elBrand.textContent = data.company;
+          if(elFooter) elFooter.textContent = data.company;
+        }
+
+        // Hero 文案
+        if(data.hero_title){
+          document.getElementById('heroTitle').innerHTML = data.hero_title;
+        }
+        if(data.hero_desc){
+          document.getElementById('heroDesc').textContent = data.hero_desc;
+        }
+
+        // 聯絡資訊
+        if(data.phone){
+          const tel = document.getElementById('phone');
+          if(tel){
+            tel.textContent = data.phone;
+            tel.href = 'tel:' + String(data.phone).replace(/\s+/g,'');
+          }
+        }
+
+        if(data.email){
+          const el = document.getElementById('email');
+          if(el){
+            el.textContent = data.email;
+            el.href = 'mailto:' + data.email;
+          }
+        }
+
+        if(data.whatsapp){
+          const wa = document.getElementById('wa');
+          if(wa){
+            wa.href = 'https://wa.me/' + String(data.whatsapp).replace(/\D+/g,'');
+          }
+        }
+
+        // 產品列表（覆蓋預設卡片）
+        const prodWrap = document.querySelector('#products .card-row');
+        if(prodWrap && Array.isArray(data.products)){
+          prodWrap.innerHTML = '';
+          data.products.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            const ul = (p.points || []).map(pt => `<li>✔ ${pt}</li>`).join('');
+            const dateHtml = p.updated_at
+              ? `<p class="date-label">更新：${p.updated_at}</p>`
+              : '';
+            card.innerHTML = `
+              <h3>${p.title || ''}</h3>
+              ${p.img ? `<img src="${p.img}" alt="${p.title || ''}">` : ''}
+              <ul class="list">${ul}</ul>
+              ${dateHtml}
+            `;
+            prodWrap.appendChild(card);
+          });
+        }
+
+        // 客戶回饋（覆蓋預設卡片）
+        const fbWrap = document.querySelector('#feedback .card-row');
+        if(fbWrap && Array.isArray(data.feedback)){
+          fbWrap.innerHTML = '';
+          data.feedback.forEach(f => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            const dateHtml = f.updated_at
+              ? `<p class="date-label">更新：${f.updated_at}</p>`
+              : '';
+            card.innerHTML = `
+              <p>「${f.text || ''}」</p>
+              ${f.author ? `<p class="muted">— ${f.author}</p>` : ''}
+              ${dateHtml}
+            `;
+            fbWrap.appendChild(card);
+          });
+        }
+
+      }catch(e){
+        console.error('載入 data/site.json 失敗：', e);
+      }
+    })();
+  </script>
+</body>
+</html>
